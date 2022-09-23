@@ -1,4 +1,6 @@
-#[macro_use]
+#[cfg(feature = "maud")]
+extern crate maud;
+
 extern crate md_icons_helper;
 
 pub mod filled;

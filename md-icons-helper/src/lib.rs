@@ -3,6 +3,10 @@ use std::path::Path;
 use proc_macro::TokenStream;
 use std::fs;
 
+#[cfg(feature = "maud")]
+extern crate maud;
+
+// Generates the procedural macros for the different styles
 macro_rules! files_to_functions {
     ($id:ident, $dir:literal) => {
         #[proc_macro]
@@ -25,15 +29,22 @@ macro_rules! files_to_functions {
                         let osname = entry.file_name();
                         let name = osname.to_string_lossy();
                         if name.ends_with(".svg") {
-                            let name = &name[..name.len() - 4].to_uppercase();
+                            let name = &name[..name.len() - 4];
+                            let upname = name.to_uppercase();
                             if let Ok(contents) = fs::read_to_string(entry.path()) {
                                 let contents = contents.replace("\\", "\\\\");
                                 let contents = contents.replace("\"", "\\\"");
                                 code += format!(
                                     "pub const ICON_{}: &'static str = \"{}\";\n",
-                                    name, contents
+                                    upname, contents
                                 )
                                 .as_str();
+
+                                if cfg!(feature = "maud") {
+                                    code +=
+                                        format!("#[inline] pub fn maud_icon_{}() -> maud::Markup {{ maud::html! {{ (maud::PreEscaped(ICON_{})) }} }} \n", name, upname)
+                                            .as_str();
+                                }
                             } else {
                                 eprintln!("{}", entry.path().to_string_lossy());
                             }

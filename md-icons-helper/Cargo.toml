@@ -1,6 +1,6 @@
 [package]
 name = "md-icons-helper"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Helper library for md-icons"
 license = "MIT"
@@ -8,6 +8,10 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+maud = { version = "0", optional = true }
+
+[features]
+maud = [ "dep:maud" ]
 
 [lib]
 proc-macro = true
