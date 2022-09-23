@@ -1,0 +1,6 @@
+[submodule "rsc/material-design-icons"]
+	path = rsc/material-design-icons
+	url = https://github.com/marella/material-design-icons
+[submodule "md-icons/rsc/material-design-icons"]
+	path = md-icons/rsc/material-design-icons
+	url = https://github.com/marella/material-design-icons

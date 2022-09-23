@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "md-icons",
+    "md-icons-helper",
+]
