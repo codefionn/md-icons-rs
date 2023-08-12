@@ -15,3 +15,9 @@ maud = { version = "0", optional = true }
 
 [features]
 maud = [ "dep:maud", "md-icons-helper/maud" ]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[dev-dependencies]
+md-icons = { path = ".", features = ["maud"] }

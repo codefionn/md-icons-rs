@@ -35,6 +35,7 @@ name = "md-icons"
 version = "0.2.2"
 dependencies = [
  "maud",
+ "md-icons",
  "md-icons-helper",
 ]
 
