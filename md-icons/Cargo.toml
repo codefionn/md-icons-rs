@@ -1,6 +1,6 @@
 [package]
 name = "md-icons"
-version = "0.2.2"
+version = "0.3.0"
 edition = "2021"
 description = "Crate for material design icons as string constants"
 license = "MIT"
