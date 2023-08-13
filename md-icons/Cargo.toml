@@ -12,7 +12,7 @@ repository = "https://github.com/codefionn/md-icons-rs"
 [dependencies]
 maud = { version = "0", optional = true }
 leptos = { version = "0", optional = true }
-md-icons-helper = { path = "../md-icons-helper", version = "0.2.0" }
+md-icons-helper = { path = "../md-icons-helper", version = "0.3.0" }
 
 [features]
 maud = [ "dep:maud", "md-icons-helper/maud" ]
