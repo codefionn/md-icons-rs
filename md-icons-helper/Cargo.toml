@@ -10,10 +10,13 @@ repository = "https://github.com/codefionn/md-icons-rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+leptos = { version = "0", optional = true }
 maud = { version = "0", optional = true }
+regex = "1.9.3"
 
 [features]
 maud = [ "dep:maud" ]
+leptos = [ "dep:leptos" ]
 
 [lib]
 proc-macro = true

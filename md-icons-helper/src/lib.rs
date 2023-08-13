@@ -6,6 +6,9 @@ use std::fs;
 #[cfg(feature = "maud")]
 extern crate maud;
 
+#[cfg(feature = "leptos")]
+extern crate leptos;
+
 // Generates the procedural macros for the different styles
 macro_rules! files_to_functions {
     ($id:ident, $dir:literal) => {
@@ -30,6 +33,13 @@ macro_rules! files_to_functions {
                         let name = osname.to_string_lossy();
                         if name.ends_with(".svg") {
                             let name = &name[..name.len() - 4];
+                            let re = regex::Regex::new("_([a-z])").unwrap();
+                            let mut camel_name: Vec<char> = re.replace_all(name, |captures: &regex::Captures| {
+                                captures[1].to_uppercase()
+                            }).to_string().chars().collect();
+                            camel_name[0] = camel_name[0].to_uppercase().nth(0).unwrap();
+                            let camel_name: String = camel_name.into_iter().collect();
+
                             let upname = name.to_uppercase();
                             if let Ok(contents) = fs::read_to_string(entry.path()) {
                                 let contents = contents.replace("\\", "\\\\");
@@ -43,6 +53,12 @@ macro_rules! files_to_functions {
                                 if cfg!(feature = "maud") {
                                     code +=
                                         format!("#[inline] pub fn maud_icon_{}() -> maud::Markup {{ maud::html! {{ (maud::PreEscaped(ICON_{})) }} }} \n", name, upname)
+                                            .as_str();
+                                }
+
+                                if cfg!(feature = "leptos") {
+                                    code +=
+                                        format!("#[leptos::component] #[inline] pub fn LeptosIcon{}(cx: leptos::Scope) -> impl leptos::IntoView {{ use leptos::IntoAttribute; leptos::view! {{ cx, <span inner_html=ICON_{}></span> }} }}", camel_name, upname)
                                             .as_str();
                                 }
                             } else {
