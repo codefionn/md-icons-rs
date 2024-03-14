@@ -1,6 +1,6 @@
 [package]
 name = "md-icons-helper"
-version = "0.3.0"
+version = "0.3.2"
 edition = "2021"
 description = "Helper library for md-icons"
 license = "MIT"
